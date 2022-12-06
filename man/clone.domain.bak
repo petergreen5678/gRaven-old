@@ -1,0 +1,30 @@
+\name{clone.domain}
+\alias{clone.domain}
+\title{Clone a babyRHugin Domain Object}
+\description{Create a gRaven domain.}
+\usage{clone.domain(dname1)}
+\arguments{
+  \item{dname1}{name of gRaven domain}
+}
+\details{Makes a copy of an existing gRaven domain}
+\value{character string naming a gRaven domain}
+\author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
+\examples{
+demo(chest)
+chest
+get(chest)
+chest2<-clone.domain(chest)
+get(chest2)
+
+set.finding(chest,"asia","yes")
+set.finding(chest,"dysp","no")
+propagate(chest)
+get.belief(chest,'asia')
+get.belief(chest,'tub')
+
+propagate(chest2)
+get.belief(chest2,'asia')
+get.belief(chest2,'tub')
+
+list.domains()
+}

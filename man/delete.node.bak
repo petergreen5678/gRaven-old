@@ -1,0 +1,26 @@
+\name{delete.node}
+\alias{delete.node}
+\title{Delete node from a babyRHugin domain}
+\description{Delete node from a babyRHugin domain}
+\usage{
+delete.node(dname, n)
+}
+\arguments{
+  \item{dname}{domain name}
+  \item{n}{node of to be deleted}
+}
+\details{Emulates function of the same name in the \code{RHugin} package by calls to \code{gRain} functions}
+\value{a NULL value is invisibly returned.}
+\author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
+\examples{
+demo('chest',echo=FALSE)
+get.nodes(chest)
+get(chest)$states
+sapply(get.nodes(chest),function(x) get.parents(chest,x))
+
+delete.node(chest,'tub')
+
+get.nodes(chest)
+get(chest)$states
+sapply(get.nodes(chest),function(x) get.parents(chest,x))
+}

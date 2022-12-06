@@ -1,0 +1,26 @@
+\name{delete.edge}
+\alias{delete.edge}
+\title{Delete edge from a babyRHugin domain}
+\description{
+Delete edge from a babyRHugin domain
+}
+\usage{delete.edge(dname, n, p)}
+\arguments{
+  \item{dname}{domain name}
+  \item{n}{child node of edge to be deleted}
+  \item{p}{parent node of edge to be deleted}
+}
+\value{a NULL value is invisibly returned.}
+\author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
+\examples{
+demo('chest',echo=FALSE)
+get.nodes(chest)
+get(chest)$states
+sapply(get.nodes(chest),function(x) get.parents(chest,x))
+
+delete.edge(chest,"xray","either")
+
+get.nodes(chest)
+get(chest)$states
+sapply(get.nodes(chest),function(x) get.parents(chest,x))
+}

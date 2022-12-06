@@ -1,0 +1,26 @@
+\name{compile.babyRHname}
+\alias{compile.babyRHname}
+\title{Compile a babyRHugin domain}
+\description{Compile a babyRHugin domain}
+\usage{\method{compile}{babyRHname}(object, ...)}
+\arguments{
+  \item{object}{name of babyRH domain}
+  \item{...}{additional arguments to \code{\link{compile}}}
+}
+\value{a NULL value is invisibly returned.}
+\author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
+\examples{
+chest<-hugin.domain()
+add.node(chest,"asia",c("yes","no"))
+add.node(chest,"tub",c("yes","no"))
+add.edge(chest,"tub","asia")
+chest
+compile(chest)
+chest
+set.finding(chest,"asia","yes")
+set.finding(chest,"dysp","no")
+propagate(chest)
+get(chest)$nodes
+get(chest)$states
+get(chest)$parents
+}

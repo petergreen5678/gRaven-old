@@ -1,0 +1,21 @@
+\name{propagate.babyRHname}
+\alias{propagate.babyRHname}
+\title{Propagate method for a gRaven domain}
+\description{Propagate method for a gRaven domain}
+\usage{\method{propagate}{babyRHname}(object, ...)}
+\arguments{
+  \item{object}{character string, name of babyRH domain}
+  \item{...}{additional arguments to \code{\link{print}}}
+}
+\value{a NULL value is invisibly returned.}
+\author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
+\examples{
+demo('chest',echo=FALSE)
+compile(chest)
+chest
+set.finding(chest,"asia","yes")
+set.finding(chest,"dysp","no")
+propagate(chest)
+get.belief(chest,'asia')
+get.belief(chest,'tub')
+}

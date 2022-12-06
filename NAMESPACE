@@ -1,0 +1,19 @@
+export("add.edge", "add.node", "compile.gRvname", 
+       "clone.domain", "compress", "delete.edge",
+       "delete.node", "get.nodes", "get.belief",
+       "get.normalization.constant", "get.parents", "get.table",
+       "hugin.domain", "initialize.domain", "list.domains", 
+       "map.configurations", "print.gRv",
+       "print.gRvname", "propagate.gRvname",
+       "set.finding", "set.table", "propagate.gRvname")
+
+S3method(print,gRv)
+S3method(print,gRvname)
+S3method(propagate,gRvname)
+S3method(compile,gRvname)
+S3method(triangulate,gRvname)
+
+importFrom(gRbase,propagate,compile,triangulate)
+import(gRain)
+importFrom(methods,is)
+
