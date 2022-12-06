@@ -18,16 +18,13 @@ map.configurations<-function (dname, nodes, pmin)
     }
     else {
         z <- querygrain(get(dname)$net, nodes, "joint", exclude = FALSE)
-gz<<-z
 	zz<-as.data.frame.table(z,stringsAsFactors=FALSE)
 	d<-zz[c(nodes,'Freq')]
 	names(d)<-c(nodes,'Prob')
 for(n in nodes) storage.mode(zz[[n]])<-storage.mode(get(dname)$states[[n]])
-gd<<-d
         o <- order(d$Prob, decreasing = TRUE)
         d <- d[o, ]
         trunc <- match(TRUE, cumsum(d$Prob) > 1 - pmin)
-gdot<<-d[1:trunc, ]
         structure(d[1:trunc, ], row.names = 1:trunc)
     }
 }
