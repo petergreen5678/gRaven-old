@@ -16,7 +16,7 @@ set.table(dname, n, tab = 1, type = "cpt")
 \value{a NULL value is invisibly returned.}
 
 \examples{
-demo(chest)
+demo(chest,package="gRaven")
 chest
 get(chest)
 }

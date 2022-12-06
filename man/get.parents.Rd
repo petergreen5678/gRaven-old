@@ -14,7 +14,7 @@ get.parents(dname, n)
 
 
 \examples{
-demo('chest',echo=FALSE)
+demo('chest',package="gRaven",echo=FALSE)
 get.nodes(chest)
 get(chest)$states
 sapply(get.nodes(chest),function(x) get.parents(chest,x))

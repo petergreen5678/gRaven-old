@@ -12,7 +12,7 @@
 \value{a data.frame with one column for each node in \code{nodes}. Each row contains a most probable configuration. The final column of the data.frame (\code{Prob}) gives the probability of the configuration.}
 \author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
 \examples{
-demo('chest',echo=FALSE)
+demo('chest',package="gRaven",echo=FALSE)
 compile(chest)
 set.finding(chest,'asia','yes')
 set.finding(chest,'dysp','no')

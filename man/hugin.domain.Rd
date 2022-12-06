@@ -7,7 +7,7 @@
 \value{character string naming a gRaven domain}
 \author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
 \examples{
-demo(chest)
+demo(chest,package="gRaven")
 chest
 get(chest)
 }

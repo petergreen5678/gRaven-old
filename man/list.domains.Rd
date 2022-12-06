@@ -11,7 +11,7 @@
 \value{The function invisibly returns a character vector of the domain names found.}
 \author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
 \examples{
-demo(chest)
+demo(chest,package="gRaven")
 chest
 get(chest)
 chest2<-clone.domain(chest)

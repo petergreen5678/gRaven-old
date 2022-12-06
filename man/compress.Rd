@@ -9,7 +9,7 @@
 \value{1}
 \author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
 \examples{
-demo('chest',echo=FALSE)
+demo('chest',package="gRaven",echo=FALSE)
 compile(chest)
 compress(chest)
 }

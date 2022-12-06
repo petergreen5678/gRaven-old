@@ -10,6 +10,6 @@
 \value{a NULL value is invisibly returned.}
 \author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
 \examples{
-demo(chest)
+demo(chest,package="gRaven")
 print(get(chest))
 }

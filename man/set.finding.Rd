@@ -15,7 +15,7 @@ set.finding(dname, node, finding)
 \value{a NULL value is invisibly returned.}
 
 \examples{
-demo('chest',echo=FALSE)
+demo('chest',package="gRaven",echo=FALSE)
 compile(chest)
 chest
 set.finding(chest,"asia","yes")
