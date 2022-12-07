@@ -2,9 +2,9 @@
 \alias{get.nodes}
 \title{Get the nodes of a gRaven domain}
 \description{Get the nodes of a gRaven domain}
-\usage{get.nodes(dname)}
+\usage{get.nodes(dom)}
 \arguments{
-  \item{dname}{name of gRaven domain}
+  \item{dom}{name of gRaven domain}
 }
 \details{Emulates function of the same name in the \code{RHugin} package by calls to \code{gRain} functions}
 \value{Character vector of node names.}
@@ -12,6 +12,6 @@
 \examples{
 demo('chest',package="gRaven",echo=FALSE)
 get.nodes(chest)
-get(chest)$states
+chest$states
 sapply(get.nodes(chest),function(x) get.parents(chest,x))
 }

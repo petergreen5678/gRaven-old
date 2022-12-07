@@ -1,8 +1,8 @@
 Package: gRaven
 Type: Package
 Title: Wrappers for the gRain Package to Emulate some RHugin Functionality
-Version: 0.0.9
-Date: 2022-12-06
+Version: 1.0.0
+Date: 2022-12-07
 Author: Peter Green
 Maintainer: Peter Green <P.J.Green@bristol.ac.uk>
 Description: Wrappers for functions in the gRain package to emulate some RHugin 
@@ -13,5 +13,5 @@ Description: Wrappers for functions in the gRain package to emulate some RHugin
   to his gRain package that improve the performance of this package.
 License: GPL (>=2)
 Depends: gRain (>= 1.3.12)
-Imports: gRbase,methods
+Imports: gRbase, methods, rlang
 

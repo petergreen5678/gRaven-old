@@ -9,5 +9,4 @@
 \examples{
 demo(chest,package="gRaven")
 chest
-get(chest)
 }

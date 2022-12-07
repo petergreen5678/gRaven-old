@@ -2,9 +2,9 @@
 \alias{compress}
 \title{Dummy network compression routine}
 \description{Dummy routine.}
-\usage{compress(dname)}
+\usage{compress(dom)}
 \arguments{
-  \item{dname}{name of gRaven domain}
+  \item{dom}{name of gRaven domain}
 }
 \value{1}
 \author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}

@@ -1,8 +1,8 @@
-\name{compile.gRvname}
-\alias{compile.gRvname}
+\name{compile.gRv}
+\alias{compile.gRv}
 \title{Compile a gRaven domain}
 \description{Compile a gRaven domain}
-\usage{\method{compile}{gRvname}(object, ...)}
+\usage{\method{compile}{gRv}(object, ...)}
 \arguments{
   \item{object}{name of gRv domain}
   \item{...}{additional arguments to \code{\link{compile}}}
@@ -20,7 +20,7 @@ chest
 set.finding(chest,"asia","yes")
 set.finding(chest,"dysp","no")
 propagate(chest)
-get(chest)$nodes
-get(chest)$states
-get(chest)$parents
+chest$nodes
+chest$states
+chest$parents
 }

@@ -2,9 +2,9 @@
 \alias{clone.domain}
 \title{Clone a gRaven domain Object}
 \description{Create a gRaven domain.}
-\usage{clone.domain(dname1)}
+\usage{clone.domain(dom1)}
 \arguments{
-  \item{dname1}{name of gRaven domain}
+  \item{dom1}{name of gRaven domain}
 }
 \details{Makes a copy of an existing gRaven domain}
 \value{character string naming a gRaven domain}
@@ -12,9 +12,8 @@
 \examples{
 demo(chest,package="gRaven")
 chest
-get(chest)
 chest2<-clone.domain(chest)
-get(chest2)
+chest2
 
 set.finding(chest,"asia","yes")
 set.finding(chest,"dysp","no")

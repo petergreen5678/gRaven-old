@@ -3,10 +3,10 @@
 \title{Set finding}
 \description{Set finding}
 \usage{
-set.finding(dname, node, finding)
+set.finding(dom, node, finding)
 }
 \arguments{
-  \item{dname}{name of gRaven domain}
+  \item{dom}{name of gRaven domain}
   \item{node}{name of node}
   \item{finding}{either a state of node \code{node} or a probability distribution over the states}
 }

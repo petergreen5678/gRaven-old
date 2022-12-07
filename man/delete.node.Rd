@@ -3,10 +3,10 @@
 \title{Delete node from a gRaven domain}
 \description{Delete node from a gRaven domain}
 \usage{
-delete.node(dname, n)
+delete.node(dom, n)
 }
 \arguments{
-  \item{dname}{domain name}
+  \item{dom}{domain name}
   \item{n}{node of to be deleted}
 }
 \details{Emulates function of the same name in the \code{RHugin} package by calls to \code{gRain} functions}
@@ -15,12 +15,12 @@ delete.node(dname, n)
 \examples{
 demo('chest',package="gRaven",echo=FALSE)
 get.nodes(chest)
-get(chest)$states
+chest$states
 sapply(get.nodes(chest),function(x) get.parents(chest,x))
 
 delete.node(chest,'tub')
 
 get.nodes(chest)
-get(chest)$states
+chest$states
 sapply(get.nodes(chest),function(x) get.parents(chest,x))
 }

@@ -1,69 +1,40 @@
-## gRaven interface functions
+print.gRv<-function(x, ...)
+{
+cat('domain with slots:',names(x),'\n')
+cat(length(x$nodes),'nodes:',x$nodes,fill=60)
+cat(sum(sapply(x$parents,length)),'edges\n')
+for(n in x$nodes) if(length(x$parents[[n]])>0) cat('  ',x$parents[[n]],'->',n,'\n')
+invisible(NULL)
+}
 
-# domain set up
 
-hugin.domain<-function()
+hugin.domain<-function () 
+{
+e <- rlang::env(
+   nodes=NULL,
+   states=NULL,
+   parents=NULL,
+   cptables=NULL,
+ )
+class(e)<-c("gRv","environment")
+e
+}
+
+clone.domain<-function(dom1)
 	{
-	repeat{
-		dname<-paste0('.gRvd',sample(1000,1))
-		if(!dname%in%ls(pattern='.gRvd',all.names=TRUE)) break
-		}
-	dom<-list(nodes=NULL,states=NULL,parents=NULL,cptables=NULL)
-	class(dom)<-'gRv'
-	attr(dom,'owner')<-NA
-	assign(dname,dom,envir=.GlobalEnv)
-	class(dname)<-'gRvname'
-	dname
+	dom2<-rlang::env_clone(dom1)
+	class(dom2)<-c("gRv","environment")
+	dom2
 	}
 
-clone.domain<-function(dname1)
+initialize.domain<-function(dom)
 	{
-	repeat{
-		dname2<-paste0('.gRvd',sample(1000,1))
-		if(!dname2%in%ls(pattern='.gRvd',all.names=TRUE)) break
-		}
-	dom<-get(dname1,envir=.GlobalEnv)
-	assign(dname2,dom,envir=.GlobalEnv)
-	class(dname2)<-'gRvname'
-	dname2
-	}
-
-initialize.domain<-function(dname)
-	{
-	dom<-get(dname,envir=.GlobalEnv)
 	if(is.null(dom$net)) return()
 	dom$net<-retractEvidence(dom$net)
-	assign(dname,dom,envir=.GlobalEnv)
 	}
 
-# printing
 
-print.gRv<-function(x, ...) 
-	{
-	owner<-attr(x,'owner')
-	if(is.null(owner)) cat('orphaned ')
-	cat('gRv object')
-	if((!is.na(owner))&&!is.null(owner)) cat(' owned by', attr(x,'owner'),'\n')
-	cat(' with slots:',names(x),'\n')
-	cat(length(x$nodes),'nodes:',x$nodes,fill=60)
-	cat(sum(sapply(x$parents,length)),'edges\n')
-#	for(n in x$nodes) for(p in x$parents[[n]]) cat('  ',p,'->',n,'\n')
-	for(n in x$nodes) if(length(x$parents[[n]])>0) cat('  ',x$parents[[n]],'->',n,'\n')
-	invisible(NULL)
-	}
-
-print.gRvname<-function(x, ...) 
-	{
-	dom<-get(x,envir=.GlobalEnv)
-	cat('owner of ',as.character(x),': ',sep='')
-	cat('gRv object\n')
-	cat(' with slots:',names(dom),'\n')
-	invisible(NULL)
-	}
-
-# creating and modifying BN
-
-add.node<-function (dname, n, states, subtype) 
+add.node<-function (dom, n, states, subtype) 
 {
     if (missing(states)) {
         if (subtype == "boolean") 
@@ -74,27 +45,22 @@ add.node<-function (dname, n, states, subtype)
             subtype <- switch(mode(states), character = "labeled", 
                 numeric = "numbered", logical = "boolean")
     }
-    dom <- get(dname, envir = .GlobalEnv)
     if (n %in% dom$nodes) 
-        stop(n, " already in ", dname, "\n")
+        stop(n, " already in ", dom, "\n")
     dom$nodes <- c(dom$nodes, n)
     dom$states <- c(dom$states, structure(list(states),names=n))
     dom$parents <- c(dom$parents, structure(list(NULL),names=n))
-    assign(dname, dom, envir = .GlobalEnv)
 }
 
-add.edge<-function(dname,child,parent)
-	{
-	dom<-get(dname,envir=.GlobalEnv)
-	if((!child%in%dom$nodes)||any(!parent%in%dom$nodes)) stop(child,'',parent,' not all already in ',dname,'\n')
-	dom$parents[[child]]<-c(dom$parents[[child]],parent)
-	dom$cptables[[child]]<-NULL
-	assign(dname,dom,envir=.GlobalEnv)
-	}
-
-delete.node<-function (dname, n) 
+add.edge<-function(dom,child,parent)
 {
-    dom <- get(dname, envir = .GlobalEnv)
+if((!child%in%dom$nodes)||any(!parent%in%dom$nodes)) stop(child,'',parent,' not all already in ',dom,'\n')
+dom$parents[[child]]<-c(dom$parents[[child]],parent)
+dom$cptables[[child]]<-NULL
+}
+
+delete.node<-function (dom, n) 
+{
     dom$nodes <- dom$nodes[dom$nodes != n]
     dom$states[[n]] <- NULL
     dom$parents[[n]] <- NULL
@@ -106,26 +72,22 @@ delete.node<-function (dname, n)
 	if(length(pars)==0) dom$parents[m]<-list(NULL) else dom$parents[[m]]<-pars
 	dom$cptables[[m]]<-NULL
 	}
-    assign(dname, dom, envir = .GlobalEnv)
 }
 
-delete.edge<-function (dname, n, p) 
+delete.edge<-function (dom, n, p) 
 {
-    dom <- get(dname, envir = .GlobalEnv)
     pars <- dom$parents[[n]]
     pars <- pars[pars != p]
     if (length(pars) == 0) 
         dom$parents[n] <- list(NULL)
     else dom$parents[[n]] <- pars
     dom$cptables[[n]] <- NULL
-    assign(dname, dom, envir = .GlobalEnv)
 }
 
-get.table<-function (dname,n) 
+get.table<-function (dom,n) 
 {
-# delivers CPT as a data.frame, either by extracting it if it already exists in get(dname)$cptables, 
+# delivers CPT as a data.frame, either by extracting it if it already exists in dom$cptables, 
 # or initialised with freq=1
-dom<-get(dname,envir=.GlobalEnv)
 z<-dom$cptables
 if(is.null(z)||is.null(z[[n]])) 
 {
@@ -149,10 +111,9 @@ names(df)<-c(vpa,'Freq')
 df
 }
 
-set.table<-function(dname,n,tab=1,type='cpt')
+set.table<-function(dom,n,tab=1,type='cpt')
 {
 if(is.data.frame(tab)) Freq<-tab$Freq else Freq<-as.vector(tab)
-dom<-get(dname,envir=.GlobalEnv)
 if(is.null(dom$net))
 {
 	if(is.null(dom$cptables)||is.null(dom$cptables[[n]]))
@@ -168,62 +129,67 @@ if(is.null(dom$net))
 } else {
 	dom$net<-replaceCPT(dom$net,structure(list(Freq),names=n))
 }
-assign(dname,dom,envir=.GlobalEnv)
 }
 
-# compiling
-
-compile.gRvname<-function(object, ...)
+compile.gRv<-function(object, ...)
 	{
-	dom<-get(object,envir=.GlobalEnv)
-	if(!is.null(dom$net)) warning(object," already compiled")
+	if(!is.null(object$net)) warning(object," already compiled")
 # if any nodes are missing cptables, provide dummy table
-	for(n in setdiff(dom$nodes,names(dom$cptables))) {
-		vpa<-c(n,dom$parents[[n]])
-		allstates<-dom$states[vpa]
+	for(n in setdiff(object$nodes,names(object$cptables))) {
+		vpa<-c(n,object$parents[[n]])
+		allstates<-object$states[vpa]
 		nlev<-unlist(lapply(allstates,length))
 		leng<-prod(nlev)
-		dom$cptables[[n]]<-cpt(vpa,values=rep_len(1,leng),levels=allstates)
+		object$cptables[[n]]<-cpt(vpa,values=rep_len(1,leng),levels=allstates)
 	}
-	net<-grain(compileCPT(dom$cptables))
+	net<-grain(compileCPT(object$cptables))
 	class(net)<-c("cpt_grain","grain")
-	dom$net<-net
-	assign(object,dom,envir=.GlobalEnv)
+	object$net<-net
 	}
 
-# evidence and propagation
+check.compiled<-function(dom)
+{
+	if(!all(dom$nodes%in%names(dom$cptables))) {
+		if(is.null(dom$cptables)) dom$cptables<-list()
+		for(n in dom$nodes) if(is.null(dom$cptables[[n]])) {set.table(dom,n,1)} #; cat('set table',dom,n,'\n')}
+		dom<-get(dom,envir=.GlobalEnv)
+		dom$net<-NULL
+	}
+	if(is.null(dom$net)) {compile.gRv(dom); cat('compiled',dom,'\n')}
+}
 
-set.finding<-function(dname, node, finding)
+
+set.finding<-function(dom, node, finding)
 	{
-	check.compiled(dname)
-	dom <- get(dname, envir = .GlobalEnv)
+	check.compiled(dom)
 	if (is.list(finding)) finding<-unlist(finding)
 	if (length(finding) == 1) finding <- as.integer(finding == dom$states[[node]])
 	cache<-dom$net$cache
 	if(is.null(cache)) cache<-list()
 	cache[[node]]<-finding
 	dom$net$cache<-cache
-	assign(dname, dom, envir = .GlobalEnv)
 	}
 
-propagate.gRvname<-function(object, ...) 
+get.belief<-function (dom, n) 
+{
+    unlist(querygrain(dom$net, n,exclude=FALSE))
+}
+
+propagate.gRv<-function(object, ...) 
 	{
 	check.compiled(object)
-	dom<-get(object,envir=.GlobalEnv)
-	if(!is.null(dom$net$cache))
+	if(!is.null(object$net$cache))
 		{
-		net1<-setEvidence(dom$net,evidence=dom$net$cache,propagate=TRUE)
+		net1<-setEvidence(object$net,evidence=object$net$cache,propagate=TRUE)
 		net1$cache<-NULL
 		} else {
-		net1<-propagate(dom$net)
+		net1<-propagate(object$net)
 		}
-	dom$net<-net1
-	assign(object,dom,envir=.GlobalEnv)
+	object$net<-net1
 	}
 
-get.normalization.constant<-function(dname,log=FALSE) 
+get.normalization.constant<-function(dom,log=FALSE) 
 	{
-	dom<-get(dname,envir=.GlobalEnv)
 	if(!is.null(dom$net$cache))
 		{
 		if(!is.null(dom$net$evidence))
@@ -248,79 +214,28 @@ get.normalization.constant<-function(dname,log=FALSE)
 	if(log) log(p) else p
 	}
 
-# basic queries
-
-get.nodes<-function(dname)
+get.nodes<-function(dom)
 {
-get(dname,envir=.GlobalEnv)$nodes
+dom$nodes
 }
 
-get.parents<-function(dname,n)
+get.parents<-function(dom,n)
 {
-get(dname,envir=.GlobalEnv)$parents[[n]]
+dom$parents[[n]]
 }
 
-check.compiled<-function(dname)
-{
-	dom<-get(dname,envir=.GlobalEnv)
-	if(!all(dom$nodes%in%names(dom$cptables))) {
-		if(is.null(dom$cptables)) dom$cptables<-list()
-		for(n in dom$nodes) if(is.null(dom$cptables[[n]])) {set.table(dname,n,1)} #; cat('set table',dname,n,'\n')}
-		dom<-get(dname,envir=.GlobalEnv)
-		dom$net<-NULL
-	}
-	if(is.null(dom$net)) {compile.gRvname(dname); cat('compiled',dname,'\n')}
-}
+triangulate.gRv<-function(object, ...) {}
 
-get.belief<-function (dname, n) 
-{
-    dom <- get(dname, envir = .GlobalEnv)
-    unlist(querygrain(dom$net, n,exclude=FALSE))
-}
+compress<-function(dom) {1}
 
-triangulate.gRvname<-function(object, ...) {}
 
-compress<-function(dname) {1}
-
-list.domains<-function(print=TRUE,clean=FALSE)
+list.domains<-function(print=TRUE)
 {
 domains<-NULL
-owners<-NULL
-owned<-NULL
-for(z in ls(envir = .GlobalEnv, all.names = TRUE)) if(is.character(z)){
-x<-get(z)
-
-if(is(x,"gRv"))
-{
-domains<-c(domains,z)
-} else if(is(x,"gRvname")) {
-owners<-c(owners,z)
-}
-
-if(is.list(x)&&"domains"%in%names(x)) {
-xd<-x[['domains']]
-for(y in names(xd)) if(is(xd[[y]],"gRvname")) 
-{
-owners<-c(owners,paste0(z,'$domains$',y))
-}
-} # end if is.list
-} # end for z
-if(print&&length(domains)>0) cat('domains:\n',domains,fill=60)
-for(r in owners) 
-{
-dom<-as.character(eval(parse(text=r)))
-if(print) cat(r,'owns',dom,'\n')
-owned<-c(owned,dom)
-}
-orphans<-setdiff(domains,owned)
-if(length(orphans)>0) 
-	{
-	if(print) cat('apparent orphans:\n',orphans,fill=60)
-	if(clean) 
-		{
-		rm(list = orphans, envir = .GlobalEnv)
-		if(print) cat('.. deleted\n')
-		}
-	}
+for(x in ls(all.names=TRUE,envir=.GlobalEnv))
+	if(is(get(x),'gRv')) domains<-c(domains,x)
+if(print) cat('domains:',domains,fill=60)
 invisible(domains)
-} # end function
+}
+
+

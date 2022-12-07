@@ -2,9 +2,9 @@
 \alias{get.belief}
 \title{Get beliefs in a gRaven domain}
 \description{Get beliefs (marginal probabilities) in a gRaven domain}
-\usage{get.belief(dname, n)}
+\usage{get.belief(dom, n)}
 \arguments{
-  \item{dname}{name of gRaven domain}
+  \item{dom}{name of gRaven domain}
   \item{n}{name of node}
 }
 \details{Emulates function of the same name in the \code{RHugin} package by calls to \code{gRain} functions}

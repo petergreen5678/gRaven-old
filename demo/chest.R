@@ -27,4 +27,18 @@ set.table(chest,"xray",c(0.98,0.02,0.05,0.95))
 set.table(chest,"dysp",c(0.9,0.1,0.7,0.3,0.8,0.2,0.1,0.9))
 
 chest
-get(chest)
+
+compile(chest)
+
+get.normalization.constant(chest)
+
+
+set.finding(chest,"asia","yes")
+
+set.finding(chest,"dysp","yes")
+
+get.normalization.constant(chest)
+
+list.domains()
+
+

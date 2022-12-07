@@ -3,10 +3,10 @@
 \title{Get a CPT in a gRaven domain}
 \description{Get a conditional probability table for a node in a gRaven domain}
 \usage{
-get.table(dname, n)
+get.table(dom, n)
 }
 \arguments{
-  \item{dname}{name of gRaven domain}
+  \item{dom}{name of gRaven domain}
   \item{n}{name of node}
 }
 \details{Emulates function of the same name in the \code{RHugin} package by calls to \code{gRain} functions}

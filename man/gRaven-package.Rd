@@ -44,7 +44,7 @@ set.table(chest,"dysp",c(0.9,0.1,0.7,0.3,0.8,0.2,0.1,0.9))
 
 chest
 get.nodes(chest)
-get(chest)$states
+chest$states
 sapply(get.nodes(chest),function(x) get.parents(chest,x))
 compile(chest)
 chest
@@ -65,9 +65,9 @@ get.belief(chest,'tub')
 get.belief(chest,'lung')
 get.belief(chest,'bronc')
 
-pEvidence(get(chest)$net)
+pEvidence(chest$net)
 get.normalization.constant(chest)
 
-pEvidence(get(c2)$net,evidence=list(asia="yes",dysp="yes"))
+pEvidence(c2$net,evidence=list(asia="yes",dysp="yes"))
 get.normalization.constant(c2)
 }

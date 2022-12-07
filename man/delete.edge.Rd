@@ -4,9 +4,9 @@
 \description{
 Delete edge from a gRaven domain
 }
-\usage{delete.edge(dname, n, p)}
+\usage{delete.edge(dom, n, p)}
 \arguments{
-  \item{dname}{domain name}
+  \item{dom}{domain name}
   \item{n}{child node of edge to be deleted}
   \item{p}{parent node of edge to be deleted}
 }
@@ -15,12 +15,12 @@ Delete edge from a gRaven domain
 \examples{
 demo('chest',package="gRaven",echo=FALSE)
 get.nodes(chest)
-get(chest)$states
+chest$states
 sapply(get.nodes(chest),function(x) get.parents(chest,x))
 
 delete.edge(chest,"xray","either")
 
 get.nodes(chest)
-get(chest)$states
+chest$states
 sapply(get.nodes(chest),function(x) get.parents(chest,x))
 }

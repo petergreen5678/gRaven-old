@@ -2,9 +2,9 @@
 \alias{add.edge}
 \title{Add Edge(s) to a gRaven domain}
 \description{Add a directed edge from one or more parents.}
-\usage{add.edge(dname, child, parent)}
+\usage{add.edge(dom, child, parent)}
 \arguments{
-  \item{dname}{name of a gRaven domain}
+  \item{dom}{name of a gRaven domain}
   \item{child}{a character string containing the name of the child node.}
   \item{parent}{a character string specifying by name the parent nodes}
 }
@@ -14,5 +14,4 @@
 \examples{
 demo(chest,package="gRaven")
 chest
-get(chest)
 }
