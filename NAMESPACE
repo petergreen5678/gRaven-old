@@ -4,7 +4,7 @@ export("add.edge", "add.node", "compile.gRv",
        "get.normalization.constant", "get.parents", "get.table",
        "hugin.domain", "initialize.domain", "list.domains", 
        "map.configurations", "print.gRv",
-       "print.gRv", "propagate.gRv",
+       "print.gRv", "propagate.gRv", "retract",
        "set.finding", "set.table", "propagate.gRv")
 
 S3method(print,gRv)
