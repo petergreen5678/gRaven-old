@@ -1,21 +1,16 @@
 print.gRv<-function(x, ...)
 {
-cat('domain with slots:',names(x),'\n')
-cat(length(x$nodes),'nodes:',x$nodes,fill=60)
-cat(sum(sapply(x$parents,length)),'edges\n')
-for(n in x$nodes) if(length(x$parents[[n]])>0) cat('  ',x$parents[[n]],'->',n,'\n')
-invisible(NULL)
+      cat('domain with slots:',names(x),'\n')
+      cat(length(x$nodes),'nodes:',x$nodes,fill=60)
+      cat(sum(sapply(x$parents,length)),'edges\n')
+      for(n in x$nodes) if(length(x$parents[[n]])>0) cat('  ',x$parents[[n]],'->',n,'\n')
+      invisible(NULL)
 }
 
 
 hugin.domain<-function () 
 {
-e <- rlang::env(
-   nodes=NULL,
-   states=NULL,
-   parents=NULL,
-   cptables=NULL,
- )
+e <- rlang::env( nodes=NULL, states=NULL, parents=NULL, cptables=NULL)
 class(e)<-c("gRv","environment")
 e
 }
@@ -32,7 +27,6 @@ initialize.domain<-function(dom)
 	if(is.null(dom$net)) return()
 	dom$net<-retractEvidence(dom$net)
 	}
-
 
 add.node<-function (dom, n, states, subtype) 
 {
