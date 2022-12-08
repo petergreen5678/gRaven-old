@@ -1,15 +1,18 @@
 \name{set.finding}
 \alias{set.finding}
-\title{Set finding}
-\description{Set finding}
+\alias{retract}
+\title{Set and retract finding}
+\description{Set findings}
 \usage{
 set.finding(dom, node, finding)
+retract(dom, node=dom$nodes)
 }
 \arguments{
   \item{dom}{name of gRaven domain}
   \item{node}{name of node}
   \item{finding}{either a state of node \code{node} or a probability distribution over the states}
 }
+\details{Unlike with the \code{RHugin} version, evidence can be set at only one node at a time with \code{set.finding}}
 \author{Peter J. Green, \email{P.J.Green@bristol.ac.uk}}
 
 \value{a NULL value is invisibly returned.}
