@@ -26,6 +26,7 @@ initialize.domain<-function(dom)
 	{
 	if(is.null(dom$net)) return()
 	dom$net<-retractEvidence(dom$net)
+	dom$net$cache<-NULL
 	}
 
 add.node<-function (dom, n, states, subtype) 
@@ -162,6 +163,20 @@ set.finding<-function(dom, node, finding)
 	if(is.null(cache)) cache<-list()
 	cache[[node]]<-finding
 	dom$net$cache<-cache
+	}
+
+retract<-function(dom, nodes=dom$nodes)
+	{
+	if(is.null(dom$net)) return(invisible(NULL))
+	if(!is.null(dom$net$cache)) 
+	{
+		nret<-intersect(nodes,names(dom$net$cache))
+		if(length(nret)>0) {
+			dom$net$cache[nret]<-NULL
+			if(length(dom$net$cache)==0) dom$net$cache<-NULL
+		}
+	}
+	if(!is.null(dom$net$evidence)) dom$net<-retractEvidence(dom$net,intersect(nodes,dom$net$evi$nodes),propagate=FALSE)
 	}
 
 get.belief<-function (dom, n) 
