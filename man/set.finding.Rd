@@ -10,6 +10,7 @@ retract(dom, node=dom$nodes)
 \arguments{
   \item{dom}{name of gRaven domain}
   \item{node}{name of node}
+  \item{nodes}{character vector naming one or mode nodes}
   \item{finding}{either a state of node \code{node} or a probability distribution over the states}
 }
 \details{Unlike with the \code{RHugin} version, evidence can be set at only one node at a time with \code{set.finding}}
