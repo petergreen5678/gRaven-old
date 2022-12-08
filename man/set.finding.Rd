@@ -25,6 +25,10 @@ chest
 set.finding(chest,"asia","yes")
 set.finding(chest,"dysp","no")
 propagate(chest)
-get.belief(chest,'asia')
-get.belief(chest,'tub')
+
+get.belief(chest,"asia")
+get.belief(chest,"tub")
+
+retract(chest,"dysp")
+get.belief(chest,"tub")
 }
