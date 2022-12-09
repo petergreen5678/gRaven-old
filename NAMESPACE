@@ -1,6 +1,6 @@
 export("add.edge", "add.node", "compile.gRv", 
        "clone.domain", "compress", "delete.edge",
-       "delete.node", "get.nodes", "get.belief",
+       "delete.node", "get.nodes", "get.belief", "get.finding",
        "get.normalization.constant", "get.parents", "get.table",
        "hugin.domain", "initialize.domain", "list.domains", 
        "map.configurations", "print.gRv",
