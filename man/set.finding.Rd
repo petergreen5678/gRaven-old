@@ -1,6 +1,7 @@
 \name{set.finding}
 \alias{set.finding}
 \alias{retract}
+\alias{get.finding}
 \title{Set and retract finding}
 \description{Set findings}
 \usage{
