@@ -24,7 +24,6 @@ get.finding(domain, nodes=domain$nodes, type = c("entered", "propagated"), names
 
 \examples{
 demo(chest,package="gRaven",echo=FALSE)
-compile(chest)
 chest
 set.finding(chest,"asia","yes")
 set.finding(chest,"dysp","no")
