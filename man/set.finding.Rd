@@ -23,7 +23,7 @@ get.finding(domain, nodes=domain$nodes, type = c("entered", "propagated"), names
 \value{a NULL value is invisibly returned.}
 
 \examples{
-demo('chest',package="gRaven",echo=FALSE)
+demo(chest,package="gRaven",echo=FALSE)
 compile(chest)
 chest
 set.finding(chest,"asia","yes")
