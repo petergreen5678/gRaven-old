@@ -1,7 +1,7 @@
 Package: gRaven
 Type: Package
 Title: Wrappers for the gRain Package to Emulate some RHugin Functionality
-Version: 1.0.2
+Version: 1.0.3
 Date: 2022-12-09
 Author: Peter Green
 Maintainer: Peter Green <P.J.Green@bristol.ac.uk>

@@ -238,13 +238,23 @@ triangulate.gRv<-function(object, ...) {}
 compress<-function(dom) {1}
 
 
-list.domains<-function(print=TRUE)
+list.domains<-
+function (print = TRUE) 
 {
-domains<-NULL
-for(x in ls(all.names=TRUE,envir=.GlobalEnv))
-	if(is(get(x),'gRv')) domains<-c(domains,x)
-if(print) cat('domains:',domains,fill=60)
-invisible(domains)
+    domains <- NULL
+	lsa<-ls(all.names = TRUE, envir = .GlobalEnv)
+    for (x in lsa) if (is(get(x), 
+        "gRv")) 
+        domains <- c(domains, x)
+    if (print) 
+        cat("domains:\n", domains, fill = 60)
+for(v in lsa) if(is.list(get(v))) {
+if("domains"%in%names(get(v))) 
+{
+if(print) cat(paste0(' ',v,'$domains$'),names(get(v)$domains),'\n')
+domains<-c(domains,paste0(v,'$domains$',names(get(v)$domains)))
 }
-
+}
+    invisible(domains)
+}
 
