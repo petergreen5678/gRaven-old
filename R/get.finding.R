@@ -2,12 +2,6 @@ get.finding<-function(domain, nodes=domain$nodes, type = c("entered", "propagate
 {
 type<-pmatch(type,c("entered", "propagated"))
 out<-list()
-if(1%in%type) for(node in names(domain$net$cache)) if(node%in%nodes) 
-	{
-	new<-domain$net$cache[node]
-	if(namestates) names(new[[1]])<-domain$states[[node]]
-	out<-c(out,new)
-	}
 if(2%in%type)
 {
 	evi<-domain$net$evi$evi
@@ -20,6 +14,12 @@ if(2%in%type)
 		}
 	}
 }
+if(1%in%type) for(node in names(domain$net$cache)) if(node%in%nodes) 
+	{
+	new<-domain$net$cache[node]
+	if(namestates) names(new[[1]])<-domain$states[[node]]
+	out<-c(out,new)
+	}
 if(length(nodes)==1&&length(out)==1) out[[1]] else out
 }
 
