@@ -1,0 +1,26 @@
+get.finding<-function(domain, nodes=domain$nodes, type = c("entered", "propagated"), namestates=TRUE)
+{
+type<-pmatch(type,c("entered", "propagated"))
+out<-list()
+if(1%in%type) for(node in names(domain$net$cache)) if(node%in%nodes) 
+	{
+	new<-domain$net$cache[node]
+	if(namestates) names(new[[1]])<-domain$states[[node]]
+	out<-c(out,new)
+	}
+if(2%in%type)
+{
+	evi<-domain$net$evi$evi
+	if(length(evi)>0) for(i in 1:length(evi))
+	{
+		node<-names(dimnames(evi[[i]]))
+		if(node%in%nodes) {
+			out[[node]]<-as.vector(evi[[i]])
+			if(namestates) names(out[[node]])<-domain$states[[node]]
+		}
+	}
+}
+if(length(nodes)==1&&length(out)==1) out[[1]] else out
+}
+
+
