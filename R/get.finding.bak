@@ -17,9 +17,10 @@ attr(out[[node]],'kind')<-'evid'
 }
 if(1%in%type) for(node in names(domain$net$cache)) if(node%in%nodes) 
 	{
-	out[[node]]<-domain$net$cache[node]
-	if(namestates) names(out[[node]])<-domain$states[[node]]
-attr(out[[node]],'kind')<-'cache'
+	new<-domain$net$cache[node]
+	if(namestates) names(new[[1]])<-domain$states[[node]]
+	attr(new,'kind')<-'cache'
+	out<-c(out,new)
 	}
 if(length(nodes)==1&&length(out)==1) out[[1]] else out
 }
